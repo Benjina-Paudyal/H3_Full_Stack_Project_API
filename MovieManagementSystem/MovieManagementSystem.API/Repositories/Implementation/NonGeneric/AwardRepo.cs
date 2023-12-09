@@ -16,24 +16,21 @@ namespace MovieManagementSystem.API.Repositories.Implementation.NonGeneric
 
 
 
-        // Get All
+        // GET ALL
+
         public async Task<IEnumerable<Award>> GetAllAsync()
         {
-            return await _context.Awards.Include(a => a.Movie).ToListAsync();
+            return await _context.Awards.Include(a=> a.Movie).ToListAsync();
         }
-
 
 
         // Get By Id
         public async Task<Award> GetByIdAsync(int id)
         {
-
             return await _context.Awards            // retrieves an award by id
                  .Include(a => a.Movie)             // including the related Movie
                   .FirstOrDefaultAsync(x => x.AwardId == id);
-
         }
-
 
 
         // CREATE
@@ -67,9 +64,7 @@ namespace MovieManagementSystem.API.Repositories.Implementation.NonGeneric
                 _context.Awards.Remove(award);
                 await _context.SaveChangesAsync();
                 return true;
-
             }
-
             return false;
         }
 

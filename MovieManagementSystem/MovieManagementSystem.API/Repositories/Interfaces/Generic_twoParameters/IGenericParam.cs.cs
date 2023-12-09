@@ -9,6 +9,9 @@
         public T1Entity GetEntityByID(int id);
         public void UpdateEntity(T1Entity entity);
 
+
+
+
         //Methods on the second entity 
 
         public void create(T2Entity entity);

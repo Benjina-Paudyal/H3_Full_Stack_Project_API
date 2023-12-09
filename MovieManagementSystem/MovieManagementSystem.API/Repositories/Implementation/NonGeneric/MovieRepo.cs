@@ -17,7 +17,7 @@ namespace MovieManagementSystem.API.Repositories.Implementation.NonGeneric
 
 
         // GET All
-        async Task<IEnumerable<Movie>> IMovieRepo.GetAllAsync()
+        public async Task<IEnumerable<Movie>>GetAllAsync()
         {
             return await _context.Movies.ToListAsync();
         }
@@ -28,8 +28,7 @@ namespace MovieManagementSystem.API.Repositories.Implementation.NonGeneric
         {
 
             return await _context.Movies
-                .Include(m => m.Director)
-                .FirstOrDefaultAsync(c => c.MovieId == id);
+                .FirstOrDefaultAsync(m => m.MovieId == id);
         }
 
 

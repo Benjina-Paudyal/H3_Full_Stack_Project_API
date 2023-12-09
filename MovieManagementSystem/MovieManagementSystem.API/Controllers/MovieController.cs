@@ -21,7 +21,6 @@ namespace MovieManagementSystem.API.Controllers
 
         // GET :  { apubaseurl} /api/movie
         [HttpGet]
-
         public async Task<ActionResult<IEnumerable<Movie>>> GetAll()
         {
             //Retrieve all movies from the repository 
@@ -31,7 +30,7 @@ namespace MovieManagementSystem.API.Controllers
             var moviesDto = movies.Select(movie => new MovieOutputDto
             {
                 MovieId = movie.MovieId,
-                DirectorId = movie.DirectorId,
+                //DirectorId = movie.DirectorId,
                 Title = movie.Title,
 
             }).ToList();
@@ -45,7 +44,6 @@ namespace MovieManagementSystem.API.Controllers
         // GET BY ID    { apiBaseurl}/api/movie/{id}
         [HttpGet]
         [Route("{id}")]
-
         public async Task<ActionResult<MovieInputDto>> GetById(int id)
         {
             // retreive a movie by its id from repo
@@ -59,7 +57,6 @@ namespace MovieManagementSystem.API.Controllers
             var movieDto = new MovieOutputDto
             {
                 MovieId = movie.MovieId,
-                DirectorId = movie.DirectorId,
                 Title = movie.Title,
 
             };
@@ -69,9 +66,47 @@ namespace MovieManagementSystem.API.Controllers
         }
 
 
-        // POST : { apibaseurl} /api/movie
-        [HttpPost]
+        // GET BY ID with related langugae, director and country
+       
 
+        //    var movieDto = new MovieOutputDto
+        //    {
+        //        MovieId = movie.MovieId,
+        //        Title = movie.Title,
+        //        Director = movie.Director != null 
+        //            ? new DirectorOutputDto
+        //            {
+        //                DirectorId = movie.DirectorId,
+        //                Name = movie.Director.Name,
+
+        //            }
+        //            : null,
+        //        Country = movie.Country != null 
+        //            ? new CountryOutputDto
+        //            {
+        //                CountryId = movie.CountryId,
+        //                Name = movie.Country.Name,
+        //            }
+        //            : null,
+        //        Language = movie.Language != null
+        //            ? new LanguageOutputDto
+        //            {
+        //                LanguageId = movie.LanguageId,
+        //                 Name = movie.Language.Name,
+
+        //            }
+        //            : null
+        //    };
+
+        //    return Ok(movieDto);
+
+        //}
+
+
+        // POST : { apibaseurl} /api/movie
+
+
+        [HttpPost]
         public async Task<ActionResult> Create([FromBody] MovieInputDto request)
         {
             try
@@ -91,7 +126,7 @@ namespace MovieManagementSystem.API.Controllers
                 var response = new MovieOutputDto
                 {
                     MovieId = movie.MovieId,
-                    DirectorId = movie.DirectorId,
+                    //DirectorId = movie.DirectorId,
                     Title = movie.Title,
                 };
                 return Ok(response);
@@ -106,10 +141,8 @@ namespace MovieManagementSystem.API.Controllers
 
 
         // PUT : {apibaseurl} /api/movie/{id}
-
         [HttpPut]
         [Route("{id}")]
-
         public async Task<ActionResult> Update(int id, [FromBody] MovieInputDto updateDto)
         {
             try
@@ -139,7 +172,7 @@ namespace MovieManagementSystem.API.Controllers
                 {
                     MovieId = existingMovie.MovieId,
                     Title = existingMovie.Title,
-                    DirectorId = existingMovie.DirectorId,
+                    //DirectorId = existingMovie.DirectorId,
                 };
                 return Ok(updatedDto);
             }
@@ -153,7 +186,6 @@ namespace MovieManagementSystem.API.Controllers
         // DELETE : {apibaseurl} /api/movie/{id}
         [HttpDelete]
         [Route("{id}")]
-
         public async Task<ActionResult> Delete(int id)
         {
             // retieve the existing movie

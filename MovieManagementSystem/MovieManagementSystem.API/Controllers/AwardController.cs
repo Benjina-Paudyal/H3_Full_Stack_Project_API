@@ -22,6 +22,7 @@ namespace MovieManagementSystem.API.Controllers
             _awardRepo = awardRepo;
         }
 
+        
         // GET: {apibaseurl}/api/award
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Award>>> GetAll()
@@ -44,7 +45,7 @@ namespace MovieManagementSystem.API.Controllers
                 AwardName = award.AwardName,
                 Movie = award.Movie != null ? new MovieOutputDto // ternary operator (if true new MovieDto else null)
                 {
-                    MovieId = award.Movie.MovieId,
+                   MovieId = award.Movie.MovieId,
                     Title = award.Movie.Title,
                 }
         : null
@@ -53,9 +54,7 @@ namespace MovieManagementSystem.API.Controllers
             return Ok(awards1);
 
         }
-
-
-
+    
 
         // GET BY ID: {apiBaseurl}/api/award/{id}  
         [HttpGet]
@@ -108,7 +107,7 @@ namespace MovieManagementSystem.API.Controllers
                 {
                     AwardId = award.AwardId,
                     AwardName = award.AwardName,
-                    MovieId = award.MovieId,
+                    //MovieId = award.MovieId,
                     Movie = award.Movie != null ? new MovieOutputDto
                     {
                         MovieId = award.Movie.MovieId,

@@ -5,10 +5,19 @@ namespace MovieManagementSystem.API.Data
 {
     public class MovieDbContext : DbContext
     {
-        //Constructor is uesd to pass DbContextOptions to the base class DbContext 
-        // It provides connection information to the database
+        /*
+            DbContext: It is a class that represents a session with the database.
+            DbContextOptions: It is a generic type that represents a set of options for a DbContext which contains various 
+            configuration settings that define how the context should interact with the underlying database. It allows us 
+            to configure the behaviour of that session.
+            <MovieDbContext>: The generic parameter specifies the type of the DbContext for which these options are configured..
+            In this case, the options are tailored to the specific context named 'MovieDbContext'
+            Constructor: It is uesd to pass DbContextOptions to the base class DbContext which provides configuration settings for the 
+            database context such as database provider, connection string an dother options.
 
-        // Hey when you create a new MovieDbContext , make sure to give it the necessary instructions about the database.
+
+         Hey when you create a new MovieDbContext , make sure to give it the necessary instructions about the database.
+        */
         public MovieDbContext(DbContextOptions<MovieDbContext> options) : base(options)
         {
            

@@ -6,7 +6,6 @@ namespace MovieManagementSystem.API.Repositories.Interfaces
     {
         // CRUD 
         Task<IEnumerable<Award>> GetAllAsync();
-
         Task<Award> GetByIdAsync(int id);
 
         Task<Award> CreateAsync(Award award);

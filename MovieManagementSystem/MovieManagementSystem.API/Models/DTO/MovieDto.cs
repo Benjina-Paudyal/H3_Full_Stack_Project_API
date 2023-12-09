@@ -25,7 +25,11 @@ namespace MovieManagementSystem.API.Models.DTO
 
         public string Title { get; set; }
 
-        public int DirectorId { get; set; }
+       // public DirectorOutputDto Director { get; set; }
+
+      //  public CountryOutputDto Country { get; set; }
+
+      //  public LanguageOutputDto Language { get; set;}
 
 
 
