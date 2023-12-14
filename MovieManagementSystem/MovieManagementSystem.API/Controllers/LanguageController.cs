@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using MovieManagementSystem.API.Models.Domain;
-using MovieManagementSystem.API.Models.DTO;
+using MovieManagementSystem.API.Data.Domain;
+using MovieManagementSystem.API.DTO;
 using MovieManagementSystem.API.Repositories.Implementation.NonGeneric;
 using MovieManagementSystem.API.Repositories.Interfaces;
 

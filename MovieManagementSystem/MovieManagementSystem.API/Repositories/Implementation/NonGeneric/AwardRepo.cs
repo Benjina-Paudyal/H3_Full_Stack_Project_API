@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MovieManagementSystem.API.Data;
-using MovieManagementSystem.API.Models.Domain;
+using MovieManagementSystem.API.Data.Domain;
 using MovieManagementSystem.API.Repositories.Interfaces;
 
 namespace MovieManagementSystem.API.Repositories.Implementation.NonGeneric
@@ -20,7 +20,7 @@ namespace MovieManagementSystem.API.Repositories.Implementation.NonGeneric
 
         public async Task<IEnumerable<Award>> GetAllAsync()
         {
-            return await _context.Awards.Include(a=> a.Movie).ToListAsync();
+            return await _context.Awards.Include(a => a.Movie).ToListAsync(); // includes associated movie for each actor
         }
 
 
@@ -67,6 +67,20 @@ namespace MovieManagementSystem.API.Repositories.Implementation.NonGeneric
             }
             return false;
         }
+
+
+
+        // Get award by name
+        public async Task<List<Award>> GetAwardsByNameAsync(string awardName)
+        {
+            return await _context.Awards
+                .Where(a => a.AwardName == awardName)
+                .ToListAsync();
+        }
+
+
+
+
 
 
 

@@ -2,7 +2,7 @@
 
 using System.Text.Json.Serialization;
 
-namespace MovieManagementSystem.API.Models.DTO
+namespace MovieManagementSystem.API.DTO
 {
     // Input DTO
     public class AwardInputDto

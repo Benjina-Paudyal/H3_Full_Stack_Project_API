@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace MovieManagementSystem.API.Models.Domain
+namespace MovieManagementSystem.API.Data.Domain
 {
     public class Movie
     {
@@ -22,7 +22,7 @@ namespace MovieManagementSystem.API.Models.Domain
 
         [ForeignKey("CountryId")]
         public int CountryId { get; set; } // foreign key 
-        public Country  Country { get; set; } // navigation property
+        public Country Country { get; set; } // navigation property
 
         [ForeignKey("LanguageId")]
         public int LanguageId { get; set; } // foreign key 

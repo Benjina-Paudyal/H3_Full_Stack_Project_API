@@ -1,5 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using MovieManagementSystem.API.Data;
+using MovieManagementSystem.API.Data.Domain;
+using MovieManagementSystem.API.DTO;
+using MovieManagementSystem.API.Repositories.Implementation;
 
 namespace MovieManagementSystem.API.Controllers
 {
@@ -8,38 +12,104 @@ namespace MovieManagementSystem.API.Controllers
     public class ActorController : ControllerBase
     {
 
-        // SAMPLE CODE FOR STARTING POINT
-        // GET: api/<ActorController>
+        private readonly GenericRepo<Actor> _actorRepo;
+        public ActorController(MovieDbContext context)
+        {
+            _actorRepo = new GenericRepo<Actor>(context);
+        }
+
         [HttpGet]
-        public IEnumerable<string> Get()
+        public ActionResult<IEnumerable<Actor>> GetAllActors()
         {
-            return new string[] { "value1", "value2" };
+            //Retrieve all actors from the repo
+            var actor = _actorRepo.GetAll();
+            //Return the list of actors as an http 200 ok response 
+
+            var AllActors = actor.Select(actor => new ActorDto
+            {
+                ActorId = actor.ActorId,
+                Name = actor.Name,
+            }).ToList();
+
+            return Ok(AllActors);
         }
 
-        // GET api/<ActorController>/5
+
         [HttpGet("{id}")]
-        public string Get(int id)
+        public ActionResult<Actor> GetActorById(int id)
         {
-            return "value";
+            //Retrieve all actors  id from the repository 
+
+            var actor = _actorRepo.GetbyId(id);
+            if (actor == null)
+            {
+                return NotFound();
+            }
+            return Ok(actor);
         }
 
-        // POST api/<ActorController>
+
         [HttpPost]
-        public void Post([FromBody] string value)
+        public IActionResult CreateActor([FromBody] ActorDto actordto)
         {
+            try
+            {
+                var actors = new Actor
+                {
+                    Name = actordto.Name,
+                };
+                _actorRepo.Create(actors);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.InnerException != null ? ex.InnerException.Message : ex.Message);
+            }
+
+
         }
 
-        // PUT api/<ActorController>/5
+
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public IActionResult UpdateActor(int id, [FromBody] ActorDto actordto)
         {
+            var exisitngActor = _actorRepo.GetbyId(id);
+            if (exisitngActor == null)
+            {
+                return NoContent();
+            }
+            exisitngActor.Name = actordto.Name;
+            try
+            {
+                _actorRepo.Update(id, exisitngActor);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
-        // DELETE api/<ActorController>/5
+
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public IActionResult DeleteActor(int id)
         {
-        }
+            var actor = _actorRepo.GetbyId(id);
+            // if the actor is not found ,return Http 404 not found respomnse 
+            if (actor == null)
+            {
+                return NotFound();
+            }
+            try
+            {
+                _actorRepo.Delete(id);
+                return NoContent();
 
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

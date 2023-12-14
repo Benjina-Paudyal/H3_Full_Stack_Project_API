@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MovieManagementSystem.API.Data;
-using MovieManagementSystem.API.Models.Domain;
 using Xunit;
 using System;
 using System.Collections.Generic;
@@ -9,10 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using MovieManagementSystem.API.Repositories.Implementation.NonGeneric;
 using MovieManagementSystem.API.Repositories.Interfaces;
+using MovieManagementSystem.API.Data.Domain;
 
 namespace MovieManagementSystem.Test.RepositoriesTest
 {
-  
+
 
     public class CountryRepoTest
     {
@@ -88,7 +88,7 @@ namespace MovieManagementSystem.Test.RepositoriesTest
 
             // Assert
             Assert.NotNull(result);
-            Assert.IsType<Country> (result);
+            Assert.IsType<Country>(result);
             Assert.Equal(1, result.CountryId);
 
 

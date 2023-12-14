@@ -1,4 +1,4 @@
-﻿namespace MovieManagementSystem.API.Models.DTO
+﻿namespace MovieManagementSystem.API.DTO
 {
     public class GenreDto
     {

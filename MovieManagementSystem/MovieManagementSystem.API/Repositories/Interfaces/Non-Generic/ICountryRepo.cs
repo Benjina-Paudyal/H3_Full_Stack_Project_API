@@ -1,4 +1,4 @@
-﻿using MovieManagementSystem.API.Models.Domain;
+﻿using MovieManagementSystem.API.Data.Domain;
 
 namespace MovieManagementSystem.API.Repositories.Interfaces
 {
@@ -14,7 +14,7 @@ namespace MovieManagementSystem.API.Repositories.Interfaces
 
         Task<Country> UpdateAsync(Country country);
 
-        Task<bool>DeleteAsync(int id);
+        Task<bool> DeleteAsync(int id);
 
 
     }

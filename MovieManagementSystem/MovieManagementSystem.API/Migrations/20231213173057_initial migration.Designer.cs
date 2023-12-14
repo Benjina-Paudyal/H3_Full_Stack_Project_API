@@ -12,7 +12,7 @@ using MovieManagementSystem.API.Data;
 namespace MovieManagementSystem.API.Migrations
 {
     [DbContext(typeof(MovieDbContext))]
-    [Migration("20231202052015_initial migration")]
+    [Migration("20231213173057_initial migration")]
     partial class initialmigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,7 +24,7 @@ namespace MovieManagementSystem.API.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("MovieManagementSystem.API.Models.Domain.Actor", b =>
+            modelBuilder.Entity("MovieManagementSystem.API.Data.Domain.Actor", b =>
                 {
                     b.Property<int>("ActorId")
                         .ValueGeneratedOnAdd()
@@ -52,7 +52,7 @@ namespace MovieManagementSystem.API.Migrations
                         });
                 });
 
-            modelBuilder.Entity("MovieManagementSystem.API.Models.Domain.Award", b =>
+            modelBuilder.Entity("MovieManagementSystem.API.Data.Domain.Award", b =>
                 {
                     b.Property<int>("AwardId")
                         .ValueGeneratedOnAdd()
@@ -87,7 +87,7 @@ namespace MovieManagementSystem.API.Migrations
                         });
                 });
 
-            modelBuilder.Entity("MovieManagementSystem.API.Models.Domain.Booking", b =>
+            modelBuilder.Entity("MovieManagementSystem.API.Data.Domain.Booking", b =>
                 {
                     b.Property<int>("BookingId")
                         .ValueGeneratedOnAdd()
@@ -111,9 +111,25 @@ namespace MovieManagementSystem.API.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Bookings");
+
+                    b.HasData(
+                        new
+                        {
+                            BookingId = 1,
+                            BookingDate = new DateTime(2023, 12, 13, 18, 30, 56, 712, DateTimeKind.Local).AddTicks(5311),
+                            MovieId = 1,
+                            UserId = 1
+                        },
+                        new
+                        {
+                            BookingId = 2,
+                            BookingDate = new DateTime(2023, 12, 13, 18, 30, 56, 712, DateTimeKind.Local).AddTicks(5360),
+                            MovieId = 2,
+                            UserId = 2
+                        });
                 });
 
-            modelBuilder.Entity("MovieManagementSystem.API.Models.Domain.Country", b =>
+            modelBuilder.Entity("MovieManagementSystem.API.Data.Domain.Country", b =>
                 {
                     b.Property<int>("CountryId")
                         .ValueGeneratedOnAdd()
@@ -141,7 +157,7 @@ namespace MovieManagementSystem.API.Migrations
                         });
                 });
 
-            modelBuilder.Entity("MovieManagementSystem.API.Models.Domain.Director", b =>
+            modelBuilder.Entity("MovieManagementSystem.API.Data.Domain.Director", b =>
                 {
                     b.Property<int>("DirectorId")
                         .ValueGeneratedOnAdd()
@@ -169,7 +185,7 @@ namespace MovieManagementSystem.API.Migrations
                         });
                 });
 
-            modelBuilder.Entity("MovieManagementSystem.API.Models.Domain.Genre", b =>
+            modelBuilder.Entity("MovieManagementSystem.API.Data.Domain.Genre", b =>
                 {
                     b.Property<int>("GenreId")
                         .ValueGeneratedOnAdd()
@@ -197,7 +213,7 @@ namespace MovieManagementSystem.API.Migrations
                         });
                 });
 
-            modelBuilder.Entity("MovieManagementSystem.API.Models.Domain.Language", b =>
+            modelBuilder.Entity("MovieManagementSystem.API.Data.Domain.Language", b =>
                 {
                     b.Property<int>("LanguageId")
                         .ValueGeneratedOnAdd()
@@ -225,7 +241,7 @@ namespace MovieManagementSystem.API.Migrations
                         });
                 });
 
-            modelBuilder.Entity("MovieManagementSystem.API.Models.Domain.Movie", b =>
+            modelBuilder.Entity("MovieManagementSystem.API.Data.Domain.Movie", b =>
                 {
                     b.Property<int>("MovieId")
                         .ValueGeneratedOnAdd()
@@ -282,7 +298,7 @@ namespace MovieManagementSystem.API.Migrations
                         });
                 });
 
-            modelBuilder.Entity("MovieManagementSystem.API.Models.Domain.MovieActor", b =>
+            modelBuilder.Entity("MovieManagementSystem.API.Data.Domain.MovieActor", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -305,7 +321,7 @@ namespace MovieManagementSystem.API.Migrations
                     b.ToTable("MovieActors");
                 });
 
-            modelBuilder.Entity("MovieManagementSystem.API.Models.Domain.MovieGenre", b =>
+            modelBuilder.Entity("MovieManagementSystem.API.Data.Domain.MovieGenre", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -328,7 +344,7 @@ namespace MovieManagementSystem.API.Migrations
                     b.ToTable("MovieGenres");
                 });
 
-            modelBuilder.Entity("MovieManagementSystem.API.Models.Domain.Review", b =>
+            modelBuilder.Entity("MovieManagementSystem.API.Data.Domain.Review", b =>
                 {
                     b.Property<int>("ReviewId")
                         .ValueGeneratedOnAdd()
@@ -355,9 +371,25 @@ namespace MovieManagementSystem.API.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Reviews");
+
+                    b.HasData(
+                        new
+                        {
+                            ReviewId = 1,
+                            Comment = "Great movie!",
+                            MovieId = 1,
+                            Rating = 5
+                        },
+                        new
+                        {
+                            ReviewId = 2,
+                            Comment = "Awesome director!",
+                            MovieId = 2,
+                            Rating = 4
+                        });
                 });
 
-            modelBuilder.Entity("MovieManagementSystem.API.Models.Domain.User", b =>
+            modelBuilder.Entity("MovieManagementSystem.API.Data.Domain.User", b =>
                 {
                     b.Property<int>("UserId")
                         .ValueGeneratedOnAdd()
@@ -365,7 +397,16 @@ namespace MovieManagementSystem.API.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserId"), 1L, 1);
 
+                    b.Property<string>("FirstName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Password")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Role")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserName")
@@ -374,11 +415,31 @@ namespace MovieManagementSystem.API.Migrations
                     b.HasKey("UserId");
 
                     b.ToTable("Users");
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = 1,
+                            FirstName = "John",
+                            LastName = "Doe",
+                            Password = "password",
+                            Role = "Admin",
+                            UserName = "john.doe"
+                        },
+                        new
+                        {
+                            UserId = 2,
+                            FirstName = "Jane",
+                            LastName = "Doe",
+                            Password = "password",
+                            Role = "User",
+                            UserName = "jane.doe"
+                        });
                 });
 
-            modelBuilder.Entity("MovieManagementSystem.API.Models.Domain.Award", b =>
+            modelBuilder.Entity("MovieManagementSystem.API.Data.Domain.Award", b =>
                 {
-                    b.HasOne("MovieManagementSystem.API.Models.Domain.Movie", "Movie")
+                    b.HasOne("MovieManagementSystem.API.Data.Domain.Movie", "Movie")
                         .WithMany("Awards")
                         .HasForeignKey("MovieId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -387,15 +448,15 @@ namespace MovieManagementSystem.API.Migrations
                     b.Navigation("Movie");
                 });
 
-            modelBuilder.Entity("MovieManagementSystem.API.Models.Domain.Booking", b =>
+            modelBuilder.Entity("MovieManagementSystem.API.Data.Domain.Booking", b =>
                 {
-                    b.HasOne("MovieManagementSystem.API.Models.Domain.Movie", "Movie")
+                    b.HasOne("MovieManagementSystem.API.Data.Domain.Movie", "Movie")
                         .WithMany()
                         .HasForeignKey("MovieId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("MovieManagementSystem.API.Models.Domain.User", "User")
+                    b.HasOne("MovieManagementSystem.API.Data.Domain.User", "User")
                         .WithMany("Bookings")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -406,21 +467,21 @@ namespace MovieManagementSystem.API.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("MovieManagementSystem.API.Models.Domain.Movie", b =>
+            modelBuilder.Entity("MovieManagementSystem.API.Data.Domain.Movie", b =>
                 {
-                    b.HasOne("MovieManagementSystem.API.Models.Domain.Country", "Country")
+                    b.HasOne("MovieManagementSystem.API.Data.Domain.Country", "Country")
                         .WithMany("MoviesProduced")
                         .HasForeignKey("CountryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("MovieManagementSystem.API.Models.Domain.Director", "Director")
+                    b.HasOne("MovieManagementSystem.API.Data.Domain.Director", "Director")
                         .WithMany("MovieDirectors")
                         .HasForeignKey("DirectorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("MovieManagementSystem.API.Models.Domain.Language", "Language")
+                    b.HasOne("MovieManagementSystem.API.Data.Domain.Language", "Language")
                         .WithMany("Movies")
                         .HasForeignKey("LanguageId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -433,15 +494,15 @@ namespace MovieManagementSystem.API.Migrations
                     b.Navigation("Language");
                 });
 
-            modelBuilder.Entity("MovieManagementSystem.API.Models.Domain.MovieActor", b =>
+            modelBuilder.Entity("MovieManagementSystem.API.Data.Domain.MovieActor", b =>
                 {
-                    b.HasOne("MovieManagementSystem.API.Models.Domain.Actor", "Actor")
+                    b.HasOne("MovieManagementSystem.API.Data.Domain.Actor", "Actor")
                         .WithMany("MovieActors")
                         .HasForeignKey("ActorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("MovieManagementSystem.API.Models.Domain.Movie", "Movie")
+                    b.HasOne("MovieManagementSystem.API.Data.Domain.Movie", "Movie")
                         .WithMany()
                         .HasForeignKey("MovieId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -452,15 +513,15 @@ namespace MovieManagementSystem.API.Migrations
                     b.Navigation("Movie");
                 });
 
-            modelBuilder.Entity("MovieManagementSystem.API.Models.Domain.MovieGenre", b =>
+            modelBuilder.Entity("MovieManagementSystem.API.Data.Domain.MovieGenre", b =>
                 {
-                    b.HasOne("MovieManagementSystem.API.Models.Domain.Genre", "Genre")
+                    b.HasOne("MovieManagementSystem.API.Data.Domain.Genre", "Genre")
                         .WithMany("Movies")
                         .HasForeignKey("GenreId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("MovieManagementSystem.API.Models.Domain.Movie", "Movie")
+                    b.HasOne("MovieManagementSystem.API.Data.Domain.Movie", "Movie")
                         .WithMany("MoviesGenres")
                         .HasForeignKey("MovieId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -471,47 +532,47 @@ namespace MovieManagementSystem.API.Migrations
                     b.Navigation("Movie");
                 });
 
-            modelBuilder.Entity("MovieManagementSystem.API.Models.Domain.Review", b =>
+            modelBuilder.Entity("MovieManagementSystem.API.Data.Domain.Review", b =>
                 {
-                    b.HasOne("MovieManagementSystem.API.Models.Domain.Movie", "Movie")
+                    b.HasOne("MovieManagementSystem.API.Data.Domain.Movie", "Movie")
                         .WithMany("Reviews")
                         .HasForeignKey("MovieId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("MovieManagementSystem.API.Models.Domain.User", null)
+                    b.HasOne("MovieManagementSystem.API.Data.Domain.User", null)
                         .WithMany("Reviews")
                         .HasForeignKey("UserId");
 
                     b.Navigation("Movie");
                 });
 
-            modelBuilder.Entity("MovieManagementSystem.API.Models.Domain.Actor", b =>
+            modelBuilder.Entity("MovieManagementSystem.API.Data.Domain.Actor", b =>
                 {
                     b.Navigation("MovieActors");
                 });
 
-            modelBuilder.Entity("MovieManagementSystem.API.Models.Domain.Country", b =>
+            modelBuilder.Entity("MovieManagementSystem.API.Data.Domain.Country", b =>
                 {
                     b.Navigation("MoviesProduced");
                 });
 
-            modelBuilder.Entity("MovieManagementSystem.API.Models.Domain.Director", b =>
+            modelBuilder.Entity("MovieManagementSystem.API.Data.Domain.Director", b =>
                 {
                     b.Navigation("MovieDirectors");
                 });
 
-            modelBuilder.Entity("MovieManagementSystem.API.Models.Domain.Genre", b =>
+            modelBuilder.Entity("MovieManagementSystem.API.Data.Domain.Genre", b =>
                 {
                     b.Navigation("Movies");
                 });
 
-            modelBuilder.Entity("MovieManagementSystem.API.Models.Domain.Language", b =>
+            modelBuilder.Entity("MovieManagementSystem.API.Data.Domain.Language", b =>
                 {
                     b.Navigation("Movies");
                 });
 
-            modelBuilder.Entity("MovieManagementSystem.API.Models.Domain.Movie", b =>
+            modelBuilder.Entity("MovieManagementSystem.API.Data.Domain.Movie", b =>
                 {
                     b.Navigation("Awards");
 
@@ -520,7 +581,7 @@ namespace MovieManagementSystem.API.Migrations
                     b.Navigation("Reviews");
                 });
 
-            modelBuilder.Entity("MovieManagementSystem.API.Models.Domain.User", b =>
+            modelBuilder.Entity("MovieManagementSystem.API.Data.Domain.User", b =>
                 {
                     b.Navigation("Bookings");
 

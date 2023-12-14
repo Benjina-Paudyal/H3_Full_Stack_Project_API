@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.EntityFrameworkCore;
 using MovieManagementSystem.API.Data;
-using MovieManagementSystem.API.Models.Domain;
+using MovieManagementSystem.API.Data.Domain;
 using MovieManagementSystem.API.Repositories.Implementation.NonGeneric;
 using MovieManagementSystem.API.Repositories.Interfaces;
 using System;
@@ -31,19 +31,19 @@ namespace MovieManagementSystem.Test.RepositoriesTest
 
 
             // STEP3: create and add sample movies to the database
-                Movie movie1 = new Movie()
-                {
-                    Title = "Forest Gump"
-                };
+            Movie movie1 = new Movie()
+            {
+                Title = "Forest Gump"
+            };
 
-                Movie movie2 = new Movie()
-                {
-                    Title = "The Terminal"
-                };
-                _context.Movies.Add(movie1);
-                _context.Movies.Add(movie2);
-                _context.SaveChanges();
-            
+            Movie movie2 = new Movie()
+            {
+                Title = "The Terminal"
+            };
+            _context.Movies.Add(movie1);
+            _context.Movies.Add(movie2);
+            _context.SaveChanges();
+
         }
 
         //STEP4 : Define a test method using xUnit's [Fact] attribute
@@ -52,7 +52,7 @@ namespace MovieManagementSystem.Test.RepositoriesTest
         public async Task GetAllShoulReturnListOfMovies_WhenMovieExists()
         {
             // STEP5: Arrange- create objects/Variables/something
-       
+
             _movieRepo = new MovieRepo(_context);
 
             // STEP6: Act- actions ( try to have some action i.e. call method)
@@ -69,7 +69,7 @@ namespace MovieManagementSystem.Test.RepositoriesTest
         public async Task GetAllShouldReturnEmptyList_WhenMovieDoesNotExists()
         {
             // Arrange
-          
+
             _context.Movies.RemoveRange(_context.Movies); // remove all the movies from in-memory database
             await _context.SaveChangesAsync();
 
@@ -155,7 +155,7 @@ namespace MovieManagementSystem.Test.RepositoriesTest
         public async Task AddShouldCreateNewMovie_WhenValidDataProvided()
         {
             // Arrange
-             _movieRepo = new MovieRepo(_context);
+            _movieRepo = new MovieRepo(_context);
             var movie = new Movie { Title = "Inception" };
 
             // Act

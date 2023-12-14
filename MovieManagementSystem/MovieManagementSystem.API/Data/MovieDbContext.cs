@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using MovieManagementSystem.API.Models.Domain;
+using MovieManagementSystem.API.Data.Domain;
 
 namespace MovieManagementSystem.API.Data
 {
@@ -20,7 +20,7 @@ namespace MovieManagementSystem.API.Data
         */
         public MovieDbContext(DbContextOptions<MovieDbContext> options) : base(options)
         {
-           
+
         }
         // DbSet properties represent tables in the databse which will be used to interact with corresponding entities
 
@@ -101,12 +101,31 @@ namespace MovieManagementSystem.API.Data
                 new Genre { GenreId = 2, Name = "Genre2" }
             );
 
-            
+            // Users
+
+            modelBuilder.Entity<User>().HasData(
+                new User { UserId = 1, FirstName = "John", LastName = "Doe", UserName = "john.doe", Password = "password", Role = "Admin" },
+                new User { UserId = 2, FirstName = "Jane", LastName = "Doe", UserName = "jane.doe", Password = "password", Role = "User" }
+            );
+
+            // Reviews
+
+            modelBuilder.Entity<Review>().HasData(
+                new Review { ReviewId = 1, Comment = "Great movie!", Rating = 5, MovieId = 1 },
+                new Review { ReviewId = 2, Comment = "Awesome director!", Rating = 4, MovieId = 2 }
+            );
+
+            // Booking
+
+            modelBuilder.Entity<Booking>().HasData(
+                new Booking { BookingId = 1, BookingDate = DateTime.Now, UserId = 1, MovieId = 1 },
+                new Booking { BookingId = 2, BookingDate = DateTime.Now, UserId = 2, MovieId = 2 }
+            );
 
 
         }
     }
-        
+
 
 
 }

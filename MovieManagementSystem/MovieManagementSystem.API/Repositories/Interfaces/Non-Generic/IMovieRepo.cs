@@ -1,4 +1,4 @@
-﻿using MovieManagementSystem.API.Models.Domain;
+﻿using MovieManagementSystem.API.Data.Domain;
 
 namespace MovieManagementSystem.API.Repositories.Interfaces
 {

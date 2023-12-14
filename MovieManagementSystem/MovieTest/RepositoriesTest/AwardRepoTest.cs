@@ -1,10 +1,9 @@
 ﻿using Xunit;
 using Microsoft.EntityFrameworkCore;
 using MovieManagementSystem.API.Data;
-using MovieManagementSystem.API.Models.Domain;
 using MovieManagementSystem.API.Repositories.Implementation.NonGeneric;
 using System.Collections.Generic;
-
+using MovieManagementSystem.API.Data.Domain;
 
 namespace MovieManagementSystem.Test.RepositoriesTest
 {
@@ -73,7 +72,7 @@ namespace MovieManagementSystem.Test.RepositoriesTest
         public async Task GetAllShouldReturnListOfAwards_WhenAwardExists()
         {
             // STEP 5 :Arrange - create objects/varibales/something
-      
+
             _awardRepo = new AwardRepo(_context);
 
             // STEP 6: Act - actions (try to have some action i.e. call method)
@@ -92,7 +91,7 @@ namespace MovieManagementSystem.Test.RepositoriesTest
         {
             // Arrange
             _context.Awards.RemoveRange(_context.Awards); // Remove all awards from in-memory database
-         
+
             await _context.SaveChangesAsync();
 
             _awardRepo = new AwardRepo(_context);
@@ -111,7 +110,7 @@ namespace MovieManagementSystem.Test.RepositoriesTest
         public async Task GetByIdShouldReturnIds_WhenIdExists()
         {
             // STEP 5 :Arrange - create objects/varibales/something
-      
+
             _awardRepo = new AwardRepo(_context);
 
             // STEP 6: Act - actions (try to have some action i.e. call method)
@@ -145,7 +144,7 @@ namespace MovieManagementSystem.Test.RepositoriesTest
         public async Task DeleteShouldRemoveAward_WhenAwardExists()
         {
             // STEP 5 :Arrange - create objects/varibales/something
-            
+
             _awardRepo = new AwardRepo(_context);
             int AwardIdToDelete = 1; // Id of the Award to delete
 
@@ -164,9 +163,9 @@ namespace MovieManagementSystem.Test.RepositoriesTest
         public async Task DeleteShouldNotAffectAward_WhenAwardDoesNotExists()
         {
             // Arrange
-          
+
             _awardRepo = new AwardRepo(_context);
-         
+
             // Act
             await _awardRepo.DeleteAsync(0000);// Assuming 0000 is a non-existing ID
 
@@ -174,7 +173,7 @@ namespace MovieManagementSystem.Test.RepositoriesTest
             // Check if the database state remains unchanged (no awards should be deleted)
             var existingAwards = _context.Awards.ToList();
             Assert.Equal(3, existingAwards.Count);
-            
+
         }
 
 
@@ -183,7 +182,7 @@ namespace MovieManagementSystem.Test.RepositoriesTest
         {
 
             // Arrange
-           
+
             _awardRepo = new AwardRepo(_context);
 
             int existingMovieId = 1;
@@ -256,5 +255,5 @@ namespace MovieManagementSystem.Test.RepositoriesTest
     }
 }
 
-    
+
 

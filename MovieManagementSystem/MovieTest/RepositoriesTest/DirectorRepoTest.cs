@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MovieManagementSystem.API.Data;
-using MovieManagementSystem.API.Models.Domain;
+using MovieManagementSystem.API.Data.Domain;
 using MovieManagementSystem.API.Repositories.Implementation.NonGeneric;
 using MovieManagementSystem.API.Repositories.Interfaces;
 using System;
@@ -176,9 +176,9 @@ namespace MovieManagementSystem.Test.RepositoriesTest
             }
             else
             {
-                Assert.True(false,"Director with the specified Id does not exists");
+                Assert.True(false, "Director with the specified Id does not exists");
             }
-            
+
 
         }
 

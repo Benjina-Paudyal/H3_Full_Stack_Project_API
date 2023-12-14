@@ -8,14 +8,14 @@
         Implementing classes or repositories that implement this interface will defie the specific behaviour for each mehtod 
         according to the requirements of the data storage mechanism( e.g. database, file system).
      */
-    public interface IGeneric<T> where T : class 
+    public interface IGeneric<T> where T : class
     {
         IEnumerable<T> GetAll(); // retrieves all entities of type T
-        T GetbyId(int id); 
+        T GetbyId(int id);
 
         void Create(T entity); // instance of T as a parameter
 
-        void Update(int id, T entity); 
+        void Update(int id, T entity);
 
         void Delete(int id);
     }

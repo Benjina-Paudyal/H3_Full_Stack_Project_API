@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MovieManagementSystem.API.Data;
-using MovieManagementSystem.API.Models.Domain;
+using MovieManagementSystem.API.Data.Domain;
 using MovieManagementSystem.API.Repositories.Interfaces;
 
 namespace MovieManagementSystem.API.Repositories.Implementation.NonGeneric
@@ -8,7 +8,7 @@ namespace MovieManagementSystem.API.Repositories.Implementation.NonGeneric
     public class DirectorRepo : IDirectorRepo
     {
         private readonly MovieDbContext _context;
-        public DirectorRepo(MovieDbContext context) 
+        public DirectorRepo(MovieDbContext context)
         {
             _context = context;
         }
@@ -26,7 +26,7 @@ namespace MovieManagementSystem.API.Repositories.Implementation.NonGeneric
         // GET BY ID
         public async Task<Director> GetByIdAsync(int id)
         {
-            return await _context.Directors 
+            return await _context.Directors
                 .FirstOrDefaultAsync(x => x.DirectorId == id); // retreives director by i (filtering the elements)
         }
 
@@ -53,7 +53,7 @@ namespace MovieManagementSystem.API.Repositories.Implementation.NonGeneric
         public async Task<bool> DeleteAsync(int id)
         {
             var director = _context.Directors.FirstOrDefault(x => x.DirectorId == id);
-                {
+            {
                 if (director != null)
                 {
                     _context.Directors.Remove(director);
@@ -64,10 +64,10 @@ namespace MovieManagementSystem.API.Repositories.Implementation.NonGeneric
             }
         }
 
-        
 
-       
 
-        
+
+
+
     }
 }

@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace MovieManagementSystem.API.Models.Domain
+namespace MovieManagementSystem.API.Data.Domain
 {
     public class Booking
     {
@@ -20,6 +20,6 @@ namespace MovieManagementSystem.API.Models.Domain
         public int MovieId { get; set; } // foreign key
         public Movie Movie { get; set; } // navigation property
 
-        
+
     }
 }

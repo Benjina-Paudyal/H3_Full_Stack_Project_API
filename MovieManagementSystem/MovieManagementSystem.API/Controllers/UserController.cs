@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using MovieManagementSystem.API.Models.Domain;
-using MovieManagementSystem.API.Models.DTO;
+using MovieManagementSystem.API.Data.Domain;
+using MovieManagementSystem.API.DTO;
 using MovieManagementSystem.API.Repositories.Interfaces;
 
 namespace MovieManagementSystem.API.Controllers
@@ -10,15 +10,12 @@ namespace MovieManagementSystem.API.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-
         private readonly IGeneric<User> _userRepository;
         public UserController(IGeneric<User> userRepository)
         {
             _userRepository = userRepository;
         }
-
-
-        // GET: {apibaseurl}/api/user
+        //Get:api/user
         [HttpGet]
         public ActionResult<IEnumerable<User>> GetAllUsers()
         {
@@ -27,8 +24,7 @@ namespace MovieManagementSystem.API.Controllers
         }
 
 
-        // POST: {apibaseurl}/api/user
-        [HttpPost]
+        [HttpPost("{id}")]
         public ActionResult<User> GetUserById(int id)
         {
             var user = _userRepository.GetbyId(id);
@@ -40,14 +36,22 @@ namespace MovieManagementSystem.API.Controllers
         }
 
 
-        [HttpPost]
-        [Route("{register}")]
+
+
+        [HttpPost("register")]
         public ActionResult RegisterUser([FromBody] UserDto userDto)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
             try
             {
                 var newuser = new User
                 {
+                    FirstName = userDto.FirstName,
+                    LastName = userDto.LastName,
+                    Role = userDto.Role,
                     UserName = userDto.UserName,
                     Password = userDto.Password,
                 };
@@ -62,28 +66,43 @@ namespace MovieManagementSystem.API.Controllers
         }
 
 
-
-        [HttpPost]
-        [Route("{authenticate}")]
-        public ActionResult AuthenticateUser([FromBody] UserDto usersDto)
+        [HttpPost("authenticate")]
+        public ActionResult AuthenticateUser([FromBody] LoginDto loginDto)
         {
             try
             {
-                var user = _userRepository.GetAll().SingleOrDefault(u => u.UserName == usersDto.UserName && u.Password == usersDto.Password);
+                if (!ModelState.IsValid)
+                {
+                    // Model validation failed, return the validation errors
+                    return BadRequest(new
+                    {
+                        Type = "https://tools.ietf.org/html/rfc7231#section-6.5.1",
+                        Title = "One or more validation errors occurred.",
+                        Status = 400,
+                        Errors = ModelState.Values
+                            .SelectMany(v => v.Errors.Select(e => e.ErrorMessage))
+                            .ToList()
+                    });
+                }
+
+                var user = _userRepository.GetAll().FirstOrDefault(u =>
+                    u.UserName == loginDto.UserName &&
+                    u.Password == loginDto.Password &&
+                    u.Role == loginDto.Role);
+
                 if (user == null)
                 {
-                    return Unauthorized("Invalid usernmae or password");
+                    return Unauthorized("Invalid username or password");
                 }
-                return Ok(new { Message = "Authentication successful", UserId = user.UserId });
 
-
+                return Ok(new { Message = "Authentication successful", Id = user.UserId });
             }
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
         }
-    }
 
+    }
 
 }

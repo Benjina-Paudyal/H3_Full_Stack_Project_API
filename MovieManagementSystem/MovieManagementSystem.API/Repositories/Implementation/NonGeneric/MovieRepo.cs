@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MovieManagementSystem.API.Data;
-using MovieManagementSystem.API.Models.Domain;
+using MovieManagementSystem.API.Data.Domain;
 using MovieManagementSystem.API.Repositories.Interfaces;
 
 namespace MovieManagementSystem.API.Repositories.Implementation.NonGeneric
@@ -17,7 +17,7 @@ namespace MovieManagementSystem.API.Repositories.Implementation.NonGeneric
 
 
         // GET All
-        public async Task<IEnumerable<Movie>>GetAllAsync()
+        public async Task<IEnumerable<Movie>> GetAllAsync()
         {
             return await _context.Movies.ToListAsync();
         }

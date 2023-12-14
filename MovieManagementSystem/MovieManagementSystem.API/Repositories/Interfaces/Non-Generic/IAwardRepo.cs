@@ -1,4 +1,4 @@
-﻿using MovieManagementSystem.API.Models.Domain;
+﻿using MovieManagementSystem.API.Data.Domain;
 
 namespace MovieManagementSystem.API.Repositories.Interfaces
 {
@@ -13,7 +13,14 @@ namespace MovieManagementSystem.API.Repositories.Interfaces
         Task<Award> UpdateAsync(Award award);
 
         Task<bool> DeleteAsync(int id);
-        
+
+
+        Task<List<Award>> GetAwardsByNameAsync(string awardName);
+
+   
+
+
+
 
 
     }

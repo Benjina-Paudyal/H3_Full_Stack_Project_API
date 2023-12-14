@@ -80,8 +80,11 @@ namespace MovieManagementSystem.API.Migrations
                 {
                     UserId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UserName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Password = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Password = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Role = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -294,6 +297,15 @@ namespace MovieManagementSystem.API.Migrations
                 });
 
             migrationBuilder.InsertData(
+                table: "Users",
+                columns: new[] { "UserId", "FirstName", "LastName", "Password", "Role", "UserName" },
+                values: new object[,]
+                {
+                    { 1, "John", "Doe", "password", "Admin", "john.doe" },
+                    { 2, "Jane", "Doe", "password", "User", "jane.doe" }
+                });
+
+            migrationBuilder.InsertData(
                 table: "Movies",
                 columns: new[] { "MovieId", "CountryId", "DirectorId", "LanguageId", "Title" },
                 values: new object[] { 1, 1, 1, 1, "Movie1" });
@@ -311,12 +323,29 @@ namespace MovieManagementSystem.API.Migrations
             migrationBuilder.InsertData(
                 table: "Awards",
                 columns: new[] { "AwardId", "AwardName", "MovieId" },
-                values: new object[] { 1, "Award1", 1 });
+                values: new object[,]
+                {
+                    { 1, "Award1", 1 },
+                    { 2, "Award2", 2 }
+                });
 
             migrationBuilder.InsertData(
-                table: "Awards",
-                columns: new[] { "AwardId", "AwardName", "MovieId" },
-                values: new object[] { 2, "Award2", 2 });
+                table: "Bookings",
+                columns: new[] { "BookingId", "BookingDate", "MovieId", "UserId" },
+                values: new object[,]
+                {
+                    { 1, new DateTime(2023, 12, 13, 18, 30, 56, 712, DateTimeKind.Local).AddTicks(5311), 1, 1 },
+                    { 2, new DateTime(2023, 12, 13, 18, 30, 56, 712, DateTimeKind.Local).AddTicks(5360), 2, 2 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Reviews",
+                columns: new[] { "ReviewId", "Comment", "MovieId", "Rating", "UserId" },
+                values: new object[,]
+                {
+                    { 1, "Great movie!", 1, 5, null },
+                    { 2, "Awesome director!", 2, 4, null }
+                });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Awards_MovieId",

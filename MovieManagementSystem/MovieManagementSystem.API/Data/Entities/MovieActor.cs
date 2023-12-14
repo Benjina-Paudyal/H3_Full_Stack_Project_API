@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace MovieManagementSystem.API.Models.Domain
+namespace MovieManagementSystem.API.Data.Domain
 {
     public class MovieActor // junction table in a many to many relation between 'Movie' and 'Actor'
     {
@@ -9,7 +9,7 @@ namespace MovieManagementSystem.API.Models.Domain
 
         public int MovieId { get; set; } // foreign key
         public Movie Movie { get; set; } // navigation property
-        
+
 
         public Actor Actor { get; set; }
         public int ActorId { get; set; }

@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace MovieManagementSystem.API.Models.Domain
+namespace MovieManagementSystem.API.Data.Domain
 {
     public class MovieGenre // junction table in  many to many relation between 'Movie' and 'Genre'
     {

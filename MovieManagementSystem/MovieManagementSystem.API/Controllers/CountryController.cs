@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using MovieManagementSystem.API.Models.Domain;
-using MovieManagementSystem.API.Models.DTO;
+using MovieManagementSystem.API.Data.Domain;
+using MovieManagementSystem.API.DTO;
 using MovieManagementSystem.API.Repositories.Implementation.NonGeneric;
 using MovieManagementSystem.API.Repositories.Interfaces;
 using System.Reflection.Metadata.Ecma335;
@@ -13,7 +13,7 @@ namespace MovieManagementSystem.API.Controllers
     public class CountryController : ControllerBase
     {
         private readonly ICountryRepo _countryRepo;
-        public CountryController(ICountryRepo countryRepo) 
+        public CountryController(ICountryRepo countryRepo)
         {
             _countryRepo = countryRepo;
         }
@@ -145,7 +145,7 @@ namespace MovieManagementSystem.API.Controllers
         // DELETE : {apibaseurl}/api/country/{id}
         [HttpDelete]
         [Route("{id}")]
-        public async Task <ActionResult> Delete (int id)
+        public async Task<ActionResult> Delete(int id)
         {
             // check if the country is valid?
             var existingCountry = await _countryRepo.GetByIdAsync(id);

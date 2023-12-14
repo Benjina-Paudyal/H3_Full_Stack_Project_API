@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MovieManagementSystem.API.Data;
-using MovieManagementSystem.API.Models.Domain;
+using MovieManagementSystem.API.Data.Domain;
 using MovieManagementSystem.API.Repositories.Interfaces;
 using System.IO;
 
@@ -64,7 +64,7 @@ namespace MovieManagementSystem.API.Repositories.Implementation.NonGeneric
             }
 
         }
-        
+
     }
 }
 

@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using MovieManagementSystem.API.Models.Domain;
-using MovieManagementSystem.API.Models.DTO;
+using MovieManagementSystem.API.Data.Domain;
+using MovieManagementSystem.API.DTO;
 using MovieManagementSystem.API.Repositories.Implementation.NonGeneric;
 using MovieManagementSystem.API.Repositories.Interfaces;
 using System.Linq.Expressions;
@@ -53,7 +53,7 @@ namespace MovieManagementSystem.API.Controllers
 
             // if director is not found, return HTTP 404 not found resposne
 
-            if(director == null)
+            if (director == null)
             {
                 return NotFound();
             }
@@ -66,12 +66,12 @@ namespace MovieManagementSystem.API.Controllers
 
             return Ok(directorOutputDto);
 
-           
+
 
         }
 
 
-        
+
         // POST: {apibaseurl}/api/director
         [HttpPost]
         public async Task<ActionResult> Create([FromBody] DirectorInputDto request)
@@ -81,7 +81,7 @@ namespace MovieManagementSystem.API.Controllers
 
                 // map DTO to Domain model
 
-                var director = new Director 
+                var director = new Director
                 {
                     Name = request.Name, // object initializer
                 };
@@ -95,7 +95,7 @@ namespace MovieManagementSystem.API.Controllers
                     DirectorId = director.DirectorId,
                     Name = director.Name,
                 };
-            return Ok();
+                return Ok();
             }
             catch (Exception ex)
             {
@@ -124,7 +124,7 @@ namespace MovieManagementSystem.API.Controllers
 
                 existingDirector.Name = updateDto.Name;
 
-                if (await _directorRepo.UpdateAsync(existingDirector)==null) // if update operaiton fails by any means
+                if (await _directorRepo.UpdateAsync(existingDirector) == null) // if update operaiton fails by any means
                 {
                     return BadRequest("Update failed");
                 }
@@ -138,7 +138,7 @@ namespace MovieManagementSystem.API.Controllers
                 };
                 return Ok(updatedDto);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
@@ -151,7 +151,7 @@ namespace MovieManagementSystem.API.Controllers
         [HttpDelete]
         [Route("{id}")]
 
-        public async Task<ActionResult> Delete (int id)
+        public async Task<ActionResult> Delete(int id)
         {
             // check if director is valid?
 

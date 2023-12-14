@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using MovieManagementSystem.API.Models.Domain;
-using MovieManagementSystem.API.Models.DTO;
+using MovieManagementSystem.API.Data.Domain;
+using MovieManagementSystem.API.DTO;
 using MovieManagementSystem.API.Repositories.Interfaces;
 
 namespace MovieManagementSystem.API.Controllers
@@ -67,7 +67,7 @@ namespace MovieManagementSystem.API.Controllers
 
 
         // GET BY ID with related langugae, director and country
-       
+
 
         //    var movieDto = new MovieOutputDto
         //    {
@@ -178,7 +178,7 @@ namespace MovieManagementSystem.API.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest (new { error = "Bad Request", message = ex.Message });
+                return BadRequest(new { error = "Bad Request", message = ex.Message });
             }
         }
 
@@ -192,7 +192,7 @@ namespace MovieManagementSystem.API.Controllers
 
             var existingMovie = await _movieRepo.GetByIdAsync(id);
 
-            if ( existingMovie == null)
+            if (existingMovie == null)
             {
                 return NotFound();
             }
@@ -206,5 +206,5 @@ namespace MovieManagementSystem.API.Controllers
 
         }
     }
-    
+
 }

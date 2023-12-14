@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MovieManagementSystem.API.Data;
-using MovieManagementSystem.API.Models.Domain;
+using MovieManagementSystem.API.Data.Domain;
 using MovieManagementSystem.API.Repositories.Interfaces;
 
 namespace MovieManagementSystem.API.Repositories.Implementation.NonGeneric
@@ -28,15 +28,15 @@ namespace MovieManagementSystem.API.Repositories.Implementation.NonGeneric
 
         public async Task<Country> GetByIdAsync(int id)
         {
-                return await _context.Countries            // retrieves country by id
-                  .FirstOrDefaultAsync(x => x.CountryId == id);
-            
+            return await _context.Countries            // retrieves country by id
+              .FirstOrDefaultAsync(x => x.CountryId == id);
+
         }
 
 
         //CREATE
 
-        public async Task<Country> CreateAsync( Country country)
+        public async Task<Country> CreateAsync(Country country)
         {
             _context.Countries.Add(country);
             await _context.SaveChangesAsync();

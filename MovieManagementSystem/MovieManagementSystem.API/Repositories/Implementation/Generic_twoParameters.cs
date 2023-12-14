@@ -69,4 +69,4 @@ namespace MovieManagementSystem.API.Repositories.Implementation
             _db.SaveChanges();
         }
     }
-    }
+}

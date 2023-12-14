@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace MovieManagementSystem.API.Models.Domain
+namespace MovieManagementSystem.API.Data.Domain
 {
     public class Director
     {

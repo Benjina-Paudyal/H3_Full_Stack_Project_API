@@ -2,8 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MovieManagementSystem.API.Data;
-using MovieManagementSystem.API.Models.Domain;
-using MovieManagementSystem.API.Models.DTO;
+using MovieManagementSystem.API.Data.Domain;
+using MovieManagementSystem.API.DTO;
 using MovieManagementSystem.API.Repositories.Implementation;
 using MovieManagementSystem.API.Repositories.Interfaces;
 
@@ -14,21 +14,26 @@ namespace MovieManagementSystem.API.Controllers
     public class AwardController : ControllerBase
     {
         private readonly IAwardRepo _awardRepo;
-        
+
 
         // Constructor .. Dependency injection injecting interface
-        public AwardController(IAwardRepo awardRepo) 
+        public AwardController(IAwardRepo awardRepo)
         {
             _awardRepo = awardRepo;
         }
 
-        
+
         // GET: {apibaseurl}/api/award
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Award>>> GetAll()
         {
             // retreive all awards from the repo
-            var awards = await _awardRepo.GetAllAsync(); 
+            var awards = await _awardRepo.GetAllAsync();
+
+            if (awards == null || !awards.Any())
+            {
+                return NoContent();  // Return NoContent if there is no data
+            }
 
             /*
                 Select() : LINQ method is used to transform or project each item in a collection into a new form.Here, 
@@ -45,16 +50,16 @@ namespace MovieManagementSystem.API.Controllers
                 AwardName = award.AwardName,
                 Movie = award.Movie != null ? new MovieOutputDto // ternary operator (if true new MovieDto else null)
                 {
-                   MovieId = award.Movie.MovieId,
+                    MovieId = award.Movie.MovieId,
                     Title = award.Movie.Title,
                 }
         : null
-            }).ToList(); 
-                              
+            }).ToList();
+
             return Ok(awards1);
 
         }
-    
+
 
         // GET BY ID: {apiBaseurl}/api/award/{id}  
         [HttpGet]
@@ -107,7 +112,6 @@ namespace MovieManagementSystem.API.Controllers
                 {
                     AwardId = award.AwardId,
                     AwardName = award.AwardName,
-                    //MovieId = award.MovieId,
                     Movie = award.Movie != null ? new MovieOutputDto
                     {
                         MovieId = award.Movie.MovieId,
@@ -115,7 +119,7 @@ namespace MovieManagementSystem.API.Controllers
                     }
                     : null
                 };
-                return Ok();
+                return Ok(response);
             }
             catch (Exception ex)
             {
@@ -193,7 +197,7 @@ namespace MovieManagementSystem.API.Controllers
         // DELETE : {apibaseurl}/api/award/{id}
         [HttpDelete]
         [Route("{id}")]
-        public async Task <ActionResult> Delete(int id)
+        public async Task<ActionResult> Delete(int id)
         {
             // Retrieve the existing award
             var existingAward = await _awardRepo.GetByIdAsync(id);
@@ -202,14 +206,30 @@ namespace MovieManagementSystem.API.Controllers
             {
                 return NotFound();
             }
-                        
+
             // Delete the award 
-           await _awardRepo.DeleteAsync(id);
+            await _awardRepo.DeleteAsync(id);
 
             // 204 No Content response
             return NoContent();
         }
 
+
+
+
+        [HttpGet("byName")]
+        public async Task<IActionResult> GetAwardsByName(string awardName)
+
+        {
+            var awards = await _awardRepo.GetAwardsByNameAsync(awardName);
+
+            if (awards == null || !awards.Any())
+            {
+                return NotFound($"No award found with the name: {awardName}");
+            }
+
+            return Ok(awards);
+        }
 
 
 
